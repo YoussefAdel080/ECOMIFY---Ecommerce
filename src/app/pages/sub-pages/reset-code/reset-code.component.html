@@ -1,0 +1,21 @@
+<p class="mb-5 font-bold text-lg">Please enter the code we sent you in the text field below .</p>
+<form [formGroup]="resetCodeForm" class="space-y-5" (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <label for="resetCode" class="font-semibold">Reset Code</label>
+    <input type="text" formControlName="resetCode" [ngClass]="{'border border-red-600 bg-red-100': resetCodeForm.controls.resetCode.invalid && resetCodeForm.controls.resetCode.dirty && resetCodeForm.controls.resetCode.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="code ...">
+    @if(resetCodeForm.controls.resetCode.errors){
+      @if(
+      resetCodeForm.controls.resetCode.invalid &&
+      resetCodeForm.controls.resetCode.dirty &&
+      resetCodeForm.controls.resetCode.touched &&
+      resetCodeForm.controls.resetCode.errors['required']){
+        <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+      }
+    }
+
+    @if(resetCodeForm.errors && resetCodeForm.errors['code']){
+      <p class="text-red-500 text-xs mt-2.5">Invalid code .</p>
+    }
+  </div>
+  <button [disabled]="resetCodeForm.invalid" [ngStyle]="{'cursor': resetCodeForm.invalid ? 'not-allowed' : 'pointer'}" [ngClass]="resetCodeForm.invalid ? 'opacity-[.3]' : 'hover:bg-gray-600'" class="text-white font-semibold bg-black px-10 py-2.5 ml-auto rounded transition duration-[400ms]" type="submit">Submit</button>
+</form>

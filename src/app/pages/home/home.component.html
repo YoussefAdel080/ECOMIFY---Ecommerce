@@ -1,0 +1,77 @@
+<div class="py-[60px] px-2 md:px-0">
+
+  <section class="container mb-[60px]">
+    <app-banner-slider></app-banner-slider>
+  </section>
+
+  <section class="mb-[60px]">
+    <div class="brands-container relative overflow-hidden">
+        <div class="flex" id="brands">
+          @for (brand of allBrands; track $index) {
+            <img [src]="brand.image" [alt]="brand.name">
+          }
+        </div>
+    </div>
+  </section>
+
+  <section class="py-[60px] px-2 md:px-0 category-section">
+    <div class="container bg-white p-[30px] rounded">
+      <h2 class="text-2xl font-bold mb-5 ml-5 relative before:inline-block before:bg-black before:w-[10px] before:h-full before:absolute before:-left-5 before:top-0 before:bottom-0">Categories</h2>
+      <app-cards-slider>
+        <!-- Cards Goes Here. -->
+        @for (category of categories; track $index) {
+          <li class="flex-basis-adapt flex-shrink-0 h-[350px]">
+            <a [routerLink]="['/category',category._id]">
+              <app-category-card [category]="category"></app-category-card>
+            </a>
+          </li>
+        }
+      </app-cards-slider>
+
+    </div>
+  </section>
+
+  <section class="py-[60px] px-2 md:px-0">
+    <div class="container p-[30px] rounded">
+      <h2 class="text-2xl font-bold mb-5 ml-5 relative before:inline-block before:bg-black before:w-[10px] before:h-full before:absolute before:-left-5 before:top-0 before:bottom-0">Our Products</h2>
+      <div class="products-container flex gap-x-[8px] gap-y-5 flex-wrap relative min-h-[300px]">
+        @if(showLoadingSpinner){
+          <div class="absolute inset-0 h-full w-full z-10 bg-white flex justify-center items-center">
+            <span class="loader"></span>
+          </div>
+        }
+
+        @for (product of products; track $index) {
+          <div class="flex-basis-adapt min-w-0 flex-shrink-1">
+            <app-product-card class="" [product]="product"></app-product-card>
+          </div>
+        }
+      </div>
+      <nav aria-label="Page navigation example" class="mt-5 mx-auto w-fit">
+        <ul class="flex items-center -space-x-px h-10 text-base">
+          <li>
+            <button href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700" (click)="getProducts(currentPage-1)" [disabled]="currentPage == 1">
+              <span class="sr-only">Previous</span>
+              <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+              </svg>
+            </button>
+          </li>
+          @for (page of pagesToShow; track $index) {
+            <li>
+              <button  class="flex items-center justify-center px-4 h-10 leading-tight border border-gray-300" [ngClass]="currentPage == page ? 'bg-black text-white' : 'bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700'" (click)="getProducts(page)">{{page}}</button>
+            </li>
+          }
+          <li>
+            <button href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700" (click)="getProducts(currentPage+1)" [disabled]="currentPage == productsPages">
+              <span class="sr-only">Next</span>
+              <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+              </svg>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+</div>

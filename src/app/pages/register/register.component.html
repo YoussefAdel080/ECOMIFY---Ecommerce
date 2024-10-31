@@ -1,0 +1,141 @@
+<div class="flex min-h-screen">
+  <div class="basis-1/2 hidden md:block">
+    <img src="/assets/images/stripes-bg.jpg" alt="" class="h-full w-full">
+  </div>
+  <div class="basis-full md:basis-1/2 flex flex-col justify-center items-center px-2 py-[60px] container">
+    <div class="form-container w-full md:w-1/2">
+      <h1 class="text-4xl font-bold mb-5">Register</h1>
+      <form [formGroup]="registerForm" class="space-y-5" (ngSubmit)="onRegister()">
+        <div class="input-group">
+          <label for="name" class="font-semibold">Name</label>
+          <input [ngClass]="{'border border-red-600 bg-red-100': registerForm.controls.name.invalid && registerForm.controls.name.dirty && registerForm.controls.name.touched}" type="text" formControlName="name" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="name">
+          @if(registerForm.controls.name.errors){
+            @if(
+            registerForm.controls.name.invalid &&
+            registerForm.controls.name.dirty &&
+            registerForm.controls.name.touched &&
+            registerForm.controls.name.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="email" class="font-semibold">Email</label>
+          <input type="email" formControlName="email" [ngClass]="{'border border-red-600 bg-red-100': registerForm.controls.email.invalid && registerForm.controls.email.dirty && registerForm.controls.email.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="info@gmail.com">
+          @if(registerForm.controls.email.errors){
+            @if(
+            registerForm.controls.email.invalid &&
+            registerForm.controls.email.dirty &&
+            registerForm.controls.email.touched &&
+            registerForm.controls.email.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+
+            @if(
+            registerForm.controls.email.invalid &&
+            registerForm.controls.email.dirty &&
+            registerForm.controls.email.touched &&
+            registerForm.controls.email.errors['email']){
+              <p class="text-red-500 text-xs mt-2.5">Please enter a valid email address.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="password" class="font-semibold ">Password</label>
+          <input [ngClass]="{'border border-red-600 bg-red-100': registerForm.controls.password.invalid && registerForm.controls.password.dirty && registerForm.controls.password.touched}" type="password" formControlName="password" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="password">
+          @if(registerForm.controls.password.errors){
+            @if(
+            registerForm.controls.password.invalid &&
+            registerForm.controls.password.dirty &&
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+
+            @if(
+            registerForm.controls.password.invalid &&
+            registerForm.controls.password.dirty &&
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.errors['pattern']){
+              <p class="text-red-500 text-xs mt-2.5">Password must contain capital letters , small letters ,symbols and numbers.</p>
+            }
+
+            @if(
+            registerForm.controls.password.invalid &&
+            registerForm.controls.password.dirty &&
+            registerForm.controls.password.touched &&
+            registerForm.controls.password.errors['minlength']){
+              <p class="text-red-500 text-xs mt-2.5">Password must have at least 8 characters.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="confirmPassword" class="font-semibold">Confirm Password</label>
+          <input type="password" formControlName="rePassword" [ngClass]="{'border border-red-600 bg-red-100': registerForm.controls.name.invalid && registerForm.controls.name.dirty && registerForm.controls.name.touched
+          ||
+          registerForm.errors &&
+          registerForm.controls.password.dirty &&
+          registerForm.controls.password.touched &&
+          registerForm.controls.rePassword.dirty &&
+          registerForm.controls.rePassword.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="confirm password ...">
+          @if(registerForm.controls.rePassword.errors){
+            @if(
+            registerForm.controls.rePassword.invalid &&
+            registerForm.controls.rePassword.dirty &&
+            registerForm.controls.rePassword.touched &&
+            registerForm.controls.rePassword.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="phone" class="font-semibold ">Phone</label>
+          <input type="tel" inputmode="tel" formControlName="phone" [ngClass]="{'border border-red-600 bg-red-100': registerForm.controls.phone.invalid && registerForm.controls.phone.dirty && registerForm.controls.phone.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="phone number ...">
+          @if(registerForm.controls.phone.errors){
+            @if(
+            registerForm.controls.phone.invalid &&
+            registerForm.controls.phone.dirty &&
+            registerForm.controls.phone.touched &&
+            registerForm.controls.phone.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+
+            @if(
+            registerForm.controls.phone.invalid &&
+            registerForm.controls.phone.dirty &&
+            registerForm.controls.phone.touched &&
+            registerForm.controls.phone.errors['pattern']){
+              <p class="text-red-500 text-xs mt-2.5">Please enter a valid phone number.</p>
+            }
+          }
+        </div>
+
+        <div class="mt-2.5">
+          @if(registerForm.errors){
+            @if(registerForm.errors['passwordMismatch'] &&
+            registerForm.controls.password.dirty &&
+            registerForm.controls.password.touched &&
+            registerForm.controls.rePassword.dirty &&
+            registerForm.controls.rePassword.touched){
+              <p class="text-red-500 text-xs">Password and Password Confirm do not match</p>
+            }
+          }
+
+          @if(requestError){
+            <p class="text-red-500 text-xs">{{requestError}}</p>
+          }
+        </div>
+
+        <button [disabled]="registerForm.invalid" [ngStyle]="{'cursor': registerForm.invalid ? 'not-allowed' : 'pointer'}" [ngClass]="registerForm.invalid ? 'opacity-[.3]' : 'hover:bg-gray-600'" class="text-white font-semibold bg-black px-10 py-2.5 rounded transition duration-[400ms]" type="submit">Submit</button>
+      </form>
+      <div class="mt-5 font-semibold italic">
+        Already Have an account
+        <a [routerLink]="['/login']" class="font-bold underline underline-offset-4 hover:text-gray-600 transition duration-[400ms]">Login Here.</a>
+      </div>
+    </div>
+  </div>
+</div>

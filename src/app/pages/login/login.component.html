@@ -1,0 +1,71 @@
+<div class="flex min-h-screen">
+  <div class="basis-1/2 hidden md:block">
+    <img src="/assets/images/stripes-bg.jpg" alt="" class="h-full w-full">
+  </div>
+  <div class="basis-full md:basis-1/2 flex flex-col justify-center items-center px-2 py-[60px] container">
+    <div class="form-container w-full md:w-1/2">
+      <h1 class="text-4xl font-bold mb-5">Login</h1>
+      <form [formGroup]="loginForm" class="space-y-5" (ngSubmit)="onLogin()">
+        <div class="input-group">
+          <label for="email" class="font-semibold">Email</label>
+          <input type="email" formControlName="email" [ngClass]="{'border border-red-600 bg-red-100': loginForm.controls.email.invalid && loginForm.controls.email.dirty && loginForm.controls.email.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="info@gmail.com">
+          @if(loginForm.controls.email.errors){
+            @if(
+            loginForm.controls.email.invalid &&
+            loginForm.controls.email.dirty &&
+            loginForm.controls.email.touched &&
+            loginForm.controls.email.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+
+            @if(
+            loginForm.controls.email.invalid &&
+            loginForm.controls.email.dirty &&
+            loginForm.controls.email.touched &&
+            loginForm.controls.email.errors['email']){
+              <p class="text-red-500 text-xs mt-2.5">Please enter a valid email address.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="password" class="font-semibold ">Password</label>
+          <input [ngClass]="{'border border-red-600 bg-red-100': loginForm.controls.password.invalid && loginForm.controls.password.dirty && loginForm.controls.password.touched}" type="password" formControlName="password" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="password">
+          @if(loginForm.controls.password.errors){
+            @if(
+            loginForm.controls.password.invalid &&
+            loginForm.controls.password.dirty &&
+            loginForm.controls.password.touched &&
+            loginForm.controls.password.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+            @if(
+            loginForm.controls.password.invalid &&
+            loginForm.controls.password.dirty &&
+            loginForm.controls.password.touched &&
+            loginForm.controls.password.errors['pattern']){
+              <p class="text-red-500 text-xs mt-2.5">Password must contain capital letters , small letters ,symbols and numbers.</p>
+            }
+            @if(
+            loginForm.controls.password.invalid &&
+            loginForm.controls.password.dirty &&
+            loginForm.controls.password.touched &&
+            loginForm.controls.password.errors['minlength']){
+              <p class="text-red-500 text-xs mt-2.5">Password must have at least 8 characters.</p>
+            }
+          }
+        </div>
+
+        <div class="mt-2.5">
+          <p class="text-red-500 text-xs">{{requestError}}</p>
+        </div>
+
+        <button [disabled]="loginForm.invalid" [ngStyle]="{'cursor': loginForm.invalid ? 'not-allowed' : 'pointer'}" [ngClass]="loginForm.invalid ? 'opacity-[.3]' : 'hover:bg-gray-600'" class="text-white font-semibold bg-black px-10 py-2.5 rounded transition duration-[400ms]" type="submit">Login</button>
+      </form>
+      <div class="mt-5 font-semibold italic">
+        Don't Have an account <a [routerLink]="['/register']" class="font-bold underline underline-offset-4 hover:text-gray-600 transition duration-[400ms]">Register Here.</a>
+        <a [routerLink]="['/forgot-password']" class="block font-bold underline underline-offset-4 hover:text-gray-600 transition duration-[400ms]">Forgot your password?</a>
+      </div>
+    </div>
+  </div>
+</div>

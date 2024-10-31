@@ -1,0 +1,64 @@
+<header class="bg-white sticky top-0 right-0 left-0 z-[999] shadow-md">
+  <div class="container flex justify-between items-center py-4 px-2 sm:px-0">
+    <a href="#">
+      <img src="/assets/images/ecomify-logo.svg" alt="ECOMIFY" width="89" height="36">
+    </a>
+
+    <nav class="md:flex items-center space-x-10 hidden">
+      <a [routerLink]="['/home']" routerLinkActive="underline underline-offset-8" class="font-medium hover:text-gray-600 transition duration-[400ms]">Home</a>
+      <a [routerLink]="['/all-categories']" routerLinkActive="underline underline-offset-8" class="font-medium hover:text-gray-600 transition duration-[400ms]">Categories</a>
+      <a [routerLink]="['/all-products']" routerLinkActive="underline underline-offset-8" class="font-medium hover:text-gray-600 transition duration-[400ms]">Products</a>
+      <a [routerLink]="['/all-brands']" routerLinkActive="underline underline-offset-8"  class="font-medium hover:text-gray-600 transition duration-[400ms]">Brands</a>
+      @if(!loggedIn){
+        <a [routerLink]="['/register']" routerLinkActive="underline underline-offset-8" class="font-medium hover:text-gray-600 transition duration-[400ms]">Register</a>
+        <a [routerLink]="['/login']" routerLinkActive="underline underline-offset-8" class="font-medium hover:text-gray-600 transition duration-[400ms]">Login</a>
+      }
+      @if(loggedIn){
+        <button href="#" class="font-medium hover:text-gray-600 transition duration-[400ms]" (click)="onLogOut()">Logout</button>
+      }
+    </nav>
+
+    <div class="flex items-center space-x-3">
+        <a [routerLink]="['/wishlist']" routerLinkActive="text-red-500" class="relative">
+          <i class="fa fa-regular fa-heart hover:text-red-500 transition-all duration-[400ms]"></i>
+          @if(wishlistCount && loggedIn){
+            <div class="absolute top-0 -right-[3px] flex justify-center items-center bg-black text-white w-[10px] h-[10px] text-[7px] rounded border border-white border-1">
+              {{wishlistCount}}
+            </div>
+          }
+        </a>
+        <a [routerLink]="['/cart']" routerLinkActive="text-green-400" class="text-lg" class="relative">
+          <i class="fa fa-shopping-cart  hover:text-green-400 transition-all duration-[400ms]"></i>
+          @if(cartCount && loggedIn){
+            <div class="absolute top-0 -right-[3px] flex justify-center items-center bg-black text-white w-[10px] h-[10px] text-[7px] rounded border border-white border-1">
+              {{cartCount}}
+            </div>
+          }
+        </a>
+        <a href="#" class="text-lg">
+          <i class="fa fa-user-circle hover:text-gray-600 transition-all duration-[400ms]"></i>
+        </a>
+      <button class="hover:text-gray-600 transition duration-[400ms] md:hidden" (click)="menuState = 'opened'">
+          <i class="fa fa-bars"></i>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<nav [@openClose]="menuState" class="bg-white fixed inset-0 h-screen w-screen flex flex-col justify-center items-center space-y-6 md:hidden p-4 z-[9999]">
+  <a [routerLink]="['/home']" routerLinkActive="underline underline-offset-8" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'">Home</a>
+  <a [routerLink]="['/all-categories']" routerLinkActive="underline underline-offset-8" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'">Categories</a>
+  <a [routerLink]="['/all-products']" routerLinkActive="underline underline-offset-8" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'">Products</a>
+  <a [routerLink]="['/all-brands']" routerLinkActive="underline underline-offset-8" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'">Brands</a>
+  @if(!loggedIn){
+    <a [routerLink]="['/register']" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'">Register</a>
+    <a [routerLink]="['/login']" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'">Login</a>
+  }
+  @if(loggedIn){
+    <button href="#" class="w-full text-center py-3 rounded font-medium hover:text-gray-600 transition duration-[400ms] focus-within:bg-gray-300 focus-visible:bg-gray-300" (click)="menuState = 'closed'" (click)="onLogOut()">Logout</button>
+  }
+  <button class="hover:text-gray-600 transition duration-[400ms] md:hidden" (click)="menuState = 'closed'">
+    <i class="fa fa-times"></i>
+  </button>
+</nav>

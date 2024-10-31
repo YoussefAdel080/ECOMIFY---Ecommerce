@@ -1,0 +1,11 @@
+<section class="container py-[60px] px-2 md:px-0">
+  <h1 class="text-2xl font-bold mb-5 ml-5 relative before:inline-block before:bg-black before:w-[10px] before:h-full before:absolute before:-left-5 before:top-0 before:bottom-0">Categories</h1>
+
+  <div class="flex flex-wrap gap-x-[8px] gap-y-[1rem]">
+    @for (category of categories; track $index) {
+      <a [routerLink]="['/category',category._id]"  class="flex-basis-adapt flex-shrink-0 h-[350px]">
+        <app-category-card [category]="category"></app-category-card>
+      </a>
+    }
+  </div>
+</section>

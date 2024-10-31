@@ -1,0 +1,17 @@
+<div class="slider-container flex gap-4 flex-wrap md:flex-nowrap">
+  <div class="flex items-center justify-start">
+    <button type="button" [disabled]="currentCard == 0" [ngClass]="{'bg-gray-600': currentCard == 0}" (click)="prev($event)" class="py-2 px-4 bg-black text-white hover:bg-gray-600 transition duration-[400ms]">
+      <i class="fa fa-arrow-left"></i>
+    </button>
+  </div>
+  <div class="slider-tracker overflow-x-hidden">
+    <ul class="slider-list inline-flex gap-0 md:gap-[8px] transition-all duration-[500ms]">
+      <ng-content></ng-content>
+    </ul>
+  </div>
+  <div class="flex items-center justify-end">
+    <button type="button" [disabled]="availableCards == 0" [ngClass]="{'bg-gray-600': availableCards == 0}" (click)="next($event)" class="py-2 px-4 bg-black text-white hover:bg-gray-600 transition duration-[400ms]">
+      <i class="fa fa-arrow-right"></i>
+    </button>
+  </div>
+</div>

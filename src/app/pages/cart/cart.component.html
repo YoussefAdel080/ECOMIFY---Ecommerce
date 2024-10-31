@@ -1,0 +1,108 @@
+<section class="container py-[60px] px-2 md:px-0">
+  <h2 class="text-2xl font-bold mb-5 ml-5 relative before:inline-block before:bg-black before:w-[10px] before:h-full before:absolute before:-left-5 before:top-0 before:bottom-0">Cart</h2>
+  @if(cartData.numOfCartItems){
+    <div class="relative max-width-full md:overflow-x-visible overflow-x-scroll scrollbar">
+      <table class="w-full text-sm text-left rtl:text-right border-separate border-spacing-y-5">
+          <thead class="text-xs text-gray-700 shadow-lg">
+              <tr>
+                  <th scope="col" class="text-lg px-6 py-4">
+                      Product
+                  </th>
+                  <th scope="col" class="text-lg px-6 py-4 text-center">
+                      Price
+                  </th>
+                  <th scope="col" class="text-lg px-6 py-4 text-center">
+                      Quantity
+                  </th>
+                  <th scope="col" class="text-lg px-6 py-4 text-center">
+                      Subtotal
+                  </th>
+                  <th scope="col" class="text-lg px-6 py-4">
+                      <span class="sr-only">Remove</span>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              @for(product of cartProducts; track $index){
+                <tr class="shadow-lg bg-white border-b hover:bg-gray-50">
+                    <th scope="row" class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex gap-2 items-center w-fit max-w-[300px]">
+                        <div class="w-[54px] h-[54px] flex-shrink-0">
+                          <img [src]="product.product.imageCover" [alt]="product.product.title" class="h-full w-full object-cover">
+                        </div>
+                        <p class="font-bold text-gray-900 truncate">{{product.product.title}}</p>
+                      </div>
+                    </th>
+                    <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                        ${{product.price}}
+                    </td>
+                    <td class="px-6 py-4 flex justify-center font-semibold text-gray-900">
+                      <div class="relative max-w-fit">
+                        <input type="text" inputmode="numeric" [value]="product.count" class="w-[72px]" min="1" onkeypress="return false" style="caret-color: transparent;">
+                          <div class="flex flex-col absolute top-0 bottom-0 right-[20%] py-1 h-full">
+                            <button class="h-1/2 text-center hover:bg-gray-200 flex items-center justify-center" (click)="changeProductQuantity($event.currentTarget,1,product.product._id)">
+                              <i class="fa fa-solid fa-angle-up"></i>
+                            </button>
+                            <button class="h-1/2 text-center hover:bg-gray-200 flex items-center justify-center" (click)="changeProductQuantity($event.currentTarget,-1,product.product._id)">
+                              <i class="fa fa-solid fa-angle-down"></i>
+                            </button>
+                          </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-center font-semibold text-gray-900">
+                        ${{product.price * product.count}}
+                    </td>
+                    <td class="px-6 py-4 text-right text-gray-900">
+                      <button class="w-[15px] h-[15px] delete-btn" (click)="deleteProduct(product.product.id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                      </button>
+                    </td>
+                </tr>
+              }
+          </tbody>
+      </table>
+    </div>
+  }
+  @else{
+    <p class="font-bold text-3xl text-center text-gray-300">Your Cart Is Empty .</p>
+  }
+  <div class="mt-5 flex justify-between gap-2 flex-col md:flex-row">
+    <a class="basis-full md:basis-0 px-10 py-2.5 flex justify-center items-center bg-black rounded hover:bg-gray-600 transition duration-[400ms]" [routerLink]="['/home']">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20px" height="20px"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#fff" d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg>
+    </a>
+    @if(cartData.numOfCartItems){
+      <button class="basis-full md:basis-0 min-w-fit px-10 py-2.5 bg-black rounded hover:bg-gray-600 transition duration-[400ms] text-white font-bold">
+        Clear Cart
+      </button>
+    }
+  </div>
+
+  @if(cartData.numOfCartItems){
+    <div class="mt-5">
+        <div class="border-2 border-black w-full lg:w-[40%] ml-auto p-4">
+          <h2 class="text-md font-bold mb-5">Cart Total</h2>
+          <p class="text-sm font-semibold pb-2.5 mb-2.5 border-b border-black flex justify-between">
+            Subtotal
+            <span>
+              ${{cartData.data.totalCartPrice}}
+            </span>
+          </p>
+          <p class="text-sm font-semibold pb-2.5 mb-2.5 border-b border-black flex justify-between">
+            Shipping
+            <span>
+              Free
+            </span>
+          </p>
+          <p class="text-sm font-semibold mb-2.5 flex justify-between">
+            Total
+            <span>
+              ${{cartData.data.totalCartPrice}}
+            </span>
+          </p>
+          <a [routerLink]="['/checkout',cartData.cartId]" class="inline-block w-full md:w-[40%] min-w-fit px-10 py-2.5 bg-black rounded hover:bg-gray-600 transition duration-[400ms] text-white font-bold cursor-pointer">
+            Checkout
+          </a>
+        </div>
+    </div>
+  }
+</section>

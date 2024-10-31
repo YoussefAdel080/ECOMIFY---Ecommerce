@@ -1,0 +1,8 @@
+.delete-btn svg path{
+  transition: all 0.4s;
+}
+
+.delete-btn:hover svg path{
+  fill: #ef4444;
+  transition: all 0.4s;
+}

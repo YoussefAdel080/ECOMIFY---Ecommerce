@@ -1,0 +1,73 @@
+<section class="container py-[60px] px-2 md:px-0">
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="basis-full md:basis-1/2">
+      <app-image-gallery [images]="product.images"></app-image-gallery>
+    </div>
+    <div class="basis-full md:basis-1/2">
+      <h1 class="text-2xl md:text-3xl font-bold mb-5">{{product.title}}</h1>
+
+      <div class="flex items-center mb-5">
+        <div [rating]="product.ratingsAverage || 0" class="flex items-center space-x-1 rtl:space-x-reverse overflow-hidden">
+            <i class="fa fa-solid fa-star text-black"></i>
+            <i class="fa fa-solid fa-star text-black"></i>
+            <i class="fa fa-solid fa-star text-black"></i>
+            <i class="fa fa-solid fa-star text-black"></i>
+            <i class="fa fa-solid fa-star text-black"></i>
+        </div>
+        <span class="bg-gray-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded ms-2">{{product.ratingsAverage}}</span>
+        <button class="text-xl transition-all duration-[400ms] ms-auto" [ngClass]="inWishlist ? 'text-red-500 hover:text-red-400' :'hover:text-red-500 text-black'" (click)="toggleWishlist()">
+          <i class="fa fa-regular fa-heart"></i>
+        </button>
+        <p class="ms-2.5 text-gray-500 font-bold">
+          {{product.sold}}
+          <i class="fa fa-brands fa-opencart"></i>
+        </p>
+      </div>
+
+      <p class="text-2xl font-bold mb-2.5">${{product.price}}</p>
+
+      <p class="font-semibold pb-5 border-b-2 border-black mb-5">{{product.description}}</p>
+
+      <div class="flex flex-col md:flex-row gap-4 mb-5">
+        <div class="basis-full md:basis-1/2">
+          <div class="flex h-full min-h-[44px]">
+            <button class="basis-1/4 border-2 border-black rounded-s hover:bg-black hover:text-white transition duration-[400ms]" (click)="changeProductCount(-1)">
+              <i class="fa fa-solid fa-minus"></i>
+            </button>
+            <div class="basis-2/4 flex justify-center items-center border-y-2 border-black font-bold">
+              {{productCount}}
+            </div>
+            <button class="basis-1/4 border-2 border-black rounded-e hover:bg-black hover:text-white transition duration-[400ms]" (click)="changeProductCount(1)">
+              <i class="fa fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="basis-full md:basis-1/2">
+          <button class="bg-black text-white font-bold w-full py-2.5 hover:bg-gray-600 transition duration-[400ms] rounded">Add to cart</button>
+        </div>
+      </div>
+
+      <div class="border border-black rounded">
+        <div class="flex p-[1rem] border-b border-black">
+          <div class="basis-1/4 flex justify-center items-center text-black text-3xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 640 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M112 0C85.5 0 64 21.5 64 48l0 48L16 96c-8.8 0-16 7.2-16 16s7.2 16 16 16l48 0 208 0c8.8 0 16 7.2 16 16s-7.2 16-16 16L64 160l-16 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l16 0 176 0c8.8 0 16 7.2 16 16s-7.2 16-16 16L64 224l-48 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l48 0 144 0c8.8 0 16 7.2 16 16s-7.2 16-16 16L64 288l0 128c0 53 43 96 96 96s96-43 96-96l128 0c0 53 43 96 96 96s96-43 96-96l32 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l0-64 0-32 0-18.7c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7L416 96l0-48c0-26.5-21.5-48-48-48L112 0zM544 237.3l0 18.7-128 0 0-96 50.7 0L544 237.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z"/></svg>
+          </div>
+          <div class="basis-3/4">
+            <h3 class="font-bold mb-2-5">Fast Delivery</h3>
+            <p class="">Enter your postal code for Delivery Availability</p>
+          </div>
+        </div>
+
+        <div class="flex p-[1rem]">
+          <div class="basis-1/4 flex justify-center items-center text-black text-3xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M105.1 202.6c7.7-21.8 20.2-42.3 37.8-59.8c62.5-62.5 163.8-62.5 226.3 0L386.3 160 352 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l111.5 0c0 0 0 0 0 0l.4 0c17.7 0 32-14.3 32-32l0-112c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 35.2L414.4 97.6c-87.5-87.5-229.3-87.5-316.8 0C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5zM39 289.3c-5 1.5-9.8 4.2-13.7 8.2c-4 4-6.7 8.8-8.1 14c-.3 1.2-.6 2.5-.8 3.8c-.3 1.7-.4 3.4-.4 5.1L16 432c0 17.7 14.3 32 32 32s32-14.3 32-32l0-35.1 17.6 17.5c0 0 0 0 0 0c87.5 87.4 229.3 87.4 316.7 0c24.4-24.4 42.1-53.1 52.9-83.8c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.5 62.5-163.8 62.5-226.3 0l-.1-.1L125.6 352l34.4 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L48.4 288c-1.6 0-3.2 .1-4.8 .3s-3.1 .5-4.6 1z"/></svg>
+          </div>
+          <div class="basis-3/4">
+            <h3 class="font-bold mb-2-5">Return Delivery</h3>
+            <p class="">Free 30 Days Delivery Returns. Details</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

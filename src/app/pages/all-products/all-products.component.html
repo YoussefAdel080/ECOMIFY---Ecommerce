@@ -1,0 +1,19 @@
+<section class="container py-[60px] px-2 md:px-0">
+  <div class="flex justify-between items-center mb-5">
+    <h1 class="basis-full lg:basis-1/4 text-2xl font-bold ml-5 relative before:inline-block before:bg-black before:w-[10px] before:h-full before:absolute before:-left-5 before:top-0 before:bottom-0">Our Products</h1>
+    <input type="text" name="filter" [(ngModel)]="filter" placeholder="Search ..." class="basis-full lg:basis-1/4 rounded" (input)="filterProducts()">
+  </div>
+
+  <div class="products-container flex gap-x-[8px] gap-y-5 flex-wrap relative min-h-[300px]">
+    @if(!filteredProducts.length){
+      <p class="font-bold text-3xl text-center text-gray-300 basis-full">No Products Found.</p>
+    }
+    @else{
+      @for (product of filteredProducts; track $index) {
+        <div class="flex-basis-adapt min-w-0 flex-shrink-1">
+          <app-product-card class="" [product]="product"></app-product-card>
+        </div>
+      }
+    }
+  </div>
+</section>

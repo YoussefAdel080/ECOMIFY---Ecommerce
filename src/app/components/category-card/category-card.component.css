@@ -1,0 +1,7 @@
+.category-card:hover img{
+  transform: scale(1.1);
+}
+
+.category-card:hover h2{
+  transform: rotate(-15deg) translateX(-10%);
+}

@@ -1,0 +1,101 @@
+<section class="container py-[60px] px-2 md:px-0">
+  <h1 class="text-2xl font-bold mb-5 ml-5 relative before:inline-block before:bg-black before:w-[10px] before:h-full before:absolute before:-left-5 before:top-0 before:bottom-0">Checkout</h1>
+
+  <div class="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between">
+    <div class="basis-full lg:basis-5/12">
+      <h2 class="text-xl font-semibold mb-5">Billing Details</h2>
+      <form [formGroup]="billingForm" class="space-y-5" (ngSubmit)="checkout(billingForm,cartData.cartId)">
+        <div class="input-group">
+          <label for="address" class="font-semibold">Address</label>
+          <input type="text" name="address" formControlName="address" [ngClass]="{'border border-red-600 bg-red-100': billingForm.controls.address.invalid && billingForm.controls.address.dirty && billingForm.controls.address.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="enter your address here...">
+          @if(billingForm.controls.address.errors){
+            @if(
+            billingForm.controls.address.invalid &&
+            billingForm.controls.address.dirty &&
+            billingForm.controls.address.touched &&
+            billingForm.controls.address.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="phone" class="font-semibold">Phone</label>
+          <input type="tel" inputmode="tel" name="phone" formControlName="phone" [ngClass]="{'border border-red-600 bg-red-100': billingForm.controls.phone.invalid && billingForm.controls.phone.dirty && billingForm.controls.phone.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="phone number ...">
+          @if(billingForm.controls.phone.errors){
+            @if(
+            billingForm.controls.phone.invalid &&
+            billingForm.controls.phone.dirty &&
+            billingForm.controls.phone.touched &&
+            billingForm.controls.phone.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+
+            @if(
+            billingForm.controls.phone.invalid &&
+            billingForm.controls.phone.dirty &&
+            billingForm.controls.phone.touched &&
+            billingForm.controls.phone.errors['pattern']){
+              <p class="text-red-500 text-xs mt-2.5">Please enter a valid phone number.</p>
+            }
+          }
+        </div>
+
+        <div class="input-group">
+          <label for="city" class="font-semibold">City</label>
+          <input type="text" name="city" formControlName="city" [ngClass]="{'border border-red-600 bg-red-100': billingForm.controls.city.invalid && billingForm.controls.city.dirty && billingForm.controls.city.touched}" class="w-full h-10 mt-2.5 px-4 text-base peer bg-gray-100 outline-none rounded" placeholder="city ...">
+          @if(billingForm.controls.city.errors){
+            @if(
+            billingForm.controls.city.invalid &&
+            billingForm.controls.city.dirty &&
+            billingForm.controls.city.touched &&
+            billingForm.controls.city.errors['required']){
+              <p class="text-red-500 text-xs mt-2.5">Please fill out this field.</p>
+            }
+          }
+        </div>
+
+        <button [disabled]="billingForm.invalid" [ngStyle]="{'cursor': billingForm.invalid ? 'not-allowed' : 'pointer'}" [ngClass]="billingForm.invalid ? 'opacity-[.3]' : 'hover:bg-gray-600'" class="text-white font-semibold bg-black px-10 py-2.5 rounded transition duration-[400ms]" type="submit">
+          Place Order
+        </button>
+      </form>
+    </div>
+    <div class="basis-full lg:basis-5/12">
+      <div class="space-y-2.5 mb-5">
+        @for (product of cartProducts; track $index) {
+          <div class="flex justify-between items-center">
+            <div class="flex gap-2 items-center w-fit max-w-[200px]">
+              <div class="w-[54px] h-[54px] flex-shrink-0">
+                <img [src]="product.product.imageCover" [alt]="product.product.title" class="h-full w-full object-cover">
+              </div>
+              <p class="font-semibold text-gray-900 truncate">{{product.product.title}}</p>
+            </div>
+
+            <p class="text-sm font-semibold">${{product.price}} x {{product.count}} = ${{product.price * product.count}}</p>
+          </div>
+        }
+    </div>
+
+    <div>
+        <p class="text-sm font-semibold pb-2.5 mb-2.5 border-b border-black flex justify-between">
+          Subtotal
+          <span>
+            ${{cartData.data.totalCartPrice}}
+          </span>
+        </p>
+        <p class="text-sm font-semibold pb-2.5 mb-2.5 border-b border-black flex justify-between">
+          Shipping
+          <span>
+            Free
+          </span>
+        </p>
+        <p class="text-sm font-semibold mb-2.5 flex justify-between">
+          Total
+          <span>
+            ${{cartData.data.totalCartPrice}}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

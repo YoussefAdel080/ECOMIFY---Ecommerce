@@ -1,0 +1,103 @@
+@import 'flowbite';
+@import '../node_modules/font-awesome/css/font-awesome.min.css';
+@import 'ngx-toastr/toastr';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  box-sizing: border-box;
+}
+.container{
+  max-width: 100%;
+}
+
+@media (min-width:576px){
+  .container{max-width: 540px;}
+}
+
+@media (min-width:768px){
+  .container{max-width: 720px;}
+}
+
+@media (min-width:992px){
+  .container{max-width: 960px;}
+}
+
+@media (min-width:1200px){
+  .container{max-width: 1140px;}
+}
+
+@media (min-width:1400px){
+  .container{max-width: 1320px;}
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #e5e7eb;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 100vh;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #374151;
+  }
+}
+
+@media (min-width: 1400px){
+  .flex-basis-adapt{
+    flex-basis: calc((100% - 1.5rem)/4);
+  }
+}
+
+@media (min-width: 992px){
+  .flex-basis-adapt{
+    flex-basis: calc((100% - 1rem)/3);
+  }
+}
+
+@media (min-width:768px) and (max-width: 992px){
+  .flex-basis-adapt{
+    flex-basis: calc(50% - 0.5rem);
+  }
+}
+
+@media (max-width: 768px){
+  .flex-basis-adapt{
+    flex-basis: 100%;
+  }
+}
+
+.toast-container .ngx-toastr {
+  box-shadow: 0 0 5px #999999;
+}
+
+.toast-container .ngx-toastr:hover{
+  box-shadow: 0 0 8px #999999;
+}
+
+button.toast-close-button {
+  color: black;
+}
+
+.toast-progress{
+  opacity: 1;
+}
+
+.ngx-toastr.success .toast-progress{
+  background-color: #4ade80;
+}
+
+.ngx-toastr.danger .toast-progress{
+  background-color: #ef4444;
+}
+
