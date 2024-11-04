@@ -4,8 +4,9 @@ import { BrandService, IBrand } from '../services/brand.service';
 import { catchError, map, Observable } from 'rxjs';
 
 export const brandsResolver: ResolveFn<Observable<IBrand[] | boolean>> = (route, state) => {
+  const router = inject(Router);
   return inject(BrandService).getAllBrands().pipe(
     map(res => res.data),
-    catchError(err => inject(Router).navigate(['not-found']))
+    catchError(err => router.navigate(['not-found']))
   );
 };
