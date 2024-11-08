@@ -7,7 +7,7 @@
   <section class="mb-[60px]">
     <div class="brands-container relative overflow-hidden">
         <div class="flex" id="brands">
-          @for (brand of allBrands; track $index) {
+          @for (brand of allBrands(); track $index) {
             <img [src]="brand.image" [alt]="brand.name">
           }
         </div>

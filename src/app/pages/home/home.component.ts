@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { BannerSliderComponent } from "../../components/banner-slider/banner-slider.component";
-import { BrandService, IBrand } from '../../core/services/brand.service';
+import { BrandService } from '../../core/services/brand.service';
 import { RouterLink } from '@angular/router';
 import { CardsSliderComponent } from "../../components/cards-slider/cards-slider.component";
 import { CategoryService, ICategory } from '../../core/services/category.service';
@@ -21,7 +21,7 @@ export class HomeComponent {
   private categoryService = inject(CategoryService);
   private productsService = inject(ProductsService);
 
-  allBrands!:IBrand[];
+  allBrands = this.brandsService.allBrands;
   categories !:ICategory[];
   products!:IProduct[];
   productsPages = 0
@@ -42,9 +42,7 @@ export class HomeComponent {
       }
     };
 
-    this.brandsService.getAllBrands().subscribe(
-      (res) => {this.allBrands = res.data}
-    );
+
 
     this.categoryService.getAllCategories().subscribe(
       (res) => {this.categories = res.data}

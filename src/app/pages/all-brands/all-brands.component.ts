@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { IBrand } from '../../core/services/brand.service';
+import { Component, inject, Signal } from '@angular/core';
+import { BrandService, IBrand } from '../../core/services/brand.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,10 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AllBrandsComponent {
   private route = inject(ActivatedRoute);
+  private brandsService = inject(BrandService);
 
-  allBrands!:IBrand[];
-
-  constructor(){
-    this.allBrands = this.route.snapshot.data['allBrands'];
-  }
+  allBrands:Signal<IBrand[]> = this.brandsService.allBrands;
 }

@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './core/guards/auth.guard';
-import { brandsResolver } from './core/resolvers/brands.resolver';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { productResolver } from './core/resolvers/product.resolver';
 import { cartResolver } from './core/resolvers/cart.resolver';
@@ -34,10 +33,7 @@ export const routes: Routes = [
   },
   {
     path: 'all-brands',
-    loadComponent: () => import('./pages/all-brands/all-brands.component').then(m => m.AllBrandsComponent),
-    resolve:{
-      allBrands : brandsResolver
-    }
+    loadComponent: () => import('./pages/all-brands/all-brands.component').then(m => m.AllBrandsComponent)
   },
   {
     path: 'wishlist',
