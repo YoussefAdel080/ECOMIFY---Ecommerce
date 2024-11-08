@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject } from 'rxjs';
 
 export interface IRegisterData {
   name: string;
@@ -38,8 +37,12 @@ export class AuthService {
   private rootUrl = 'https://ecommerce.routemisr.com';
 
   private userInfo : any = {}
-  private isLoggedIn = new BehaviorSubject<boolean>(false);
-  $isLoggedIn = this.isLoggedIn.asObservable();
+  private isLoggedIn = signal<boolean>(false);
+  $isLoggedIn = this.isLoggedIn.asReadonly();
+
+  setIsLoggedIn(val : boolean){
+    this.isLoggedIn.set(val);
+  }
 
   constructor() { }
 
@@ -57,7 +60,7 @@ export class AuthService {
       const decode = new JwtHelperService().decodeToken(encode);
       this.userInfo = decode;
     }
-    this.isLoggedIn.next(true);
+    this.setIsLoggedIn(true);
   }
 
   get userData(){

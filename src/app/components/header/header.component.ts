@@ -40,16 +40,13 @@ export class HeaderComponent {
   private cartService = inject(CartService);
 
   menuState : 'closed' | 'opened' = 'closed';
-  loggedIn!:boolean;
 
+  loggedIn!:boolean;
   wishlistCount!:number;
   cartCount!:number;
 
   ngOnInit(): void {
-    this.auth.$isLoggedIn.subscribe(
-      res => {this.loggedIn = res}
-    )
-
+    this.loggedIn = this.auth.$isLoggedIn();
     if(this.loggedIn){
         this.wishlistService.getWishlist().subscribe({
         next:(res) => {
@@ -80,6 +77,7 @@ export class HeaderComponent {
 
   onLogOut(){
     localStorage.removeItem('_token');
+    this.auth.setIsLoggedIn(false);
     this.router.navigate(['/login']);
     this.toastr.success('You have successfully logged out. We hope to see you again soon!', 'Goodbye!',{toastClass: 'ngx-toastr text-[1rem] bg-white border-l-8 border-[#4ade80] success',titleClass:'font-bold text-md text-[#4ade80]',messageClass:'text-black text-[12px] color-[#656565]',extendedTimeOut:5000,easing: 'ease-in',progressBar: true, closeButton: true, tapToDismiss:true,newestOnTop:false});
   }
