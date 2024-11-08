@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
 import { AuthRegisterResponse } from './auth.service';
 
 @Injectable({
@@ -10,8 +9,14 @@ export class PasswordService {
   private http = inject(HttpClient);
   private rootUrl = 'https://ecommerce.routemisr.com';
 
-  $userEmail = new BehaviorSubject<string>('');
-  $steps = new BehaviorSubject<string>('step1');
+  private userEmail = signal<string>('');
+  $userEmail = this.userEmail.asReadonly();
+  $steps = signal<string>('step1');
+
+  setUserEmail(email:string){
+    this.userEmail.set(email);
+  }
+
   constructor() { }
 
   forgotPass(email: string){

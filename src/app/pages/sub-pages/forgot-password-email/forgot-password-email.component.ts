@@ -22,13 +22,11 @@ export class ForgotPasswordEmailComponent {
   onSend(){
     this.passwordService.forgotPass(this.emailForm.controls.email.value as string).subscribe({
       next:(res) => {
-        this.passwordService.$steps.next('step2');
-        this.passwordService.$userEmail.next(this.emailForm.controls.email.value as string);
+        this.passwordService.$steps.set('step2');
+        this.passwordService.setUserEmail(this.emailForm.controls.email.value as string);
         this.router.navigate(['forgot-password','reset-code']);
-        console.log(res);
       },
       error: (err) => {
-        console.log(err);
         this.emailForm.setErrors({
           auth: err.message
         })

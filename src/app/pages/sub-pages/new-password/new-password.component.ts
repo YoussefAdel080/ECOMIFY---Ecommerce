@@ -18,16 +18,14 @@ export class NewPasswordComponent {
   email!:string;
 
   ngOnInit(): void {
-    if(this.passwordService.$steps.getValue() == 'step1'){
+    if(this.passwordService.$steps() == 'step1'){
       this.router.navigate(['forgot-password'])
     }
-    else if(this.passwordService.$steps.getValue() == 'step2'){
+    else if(this.passwordService.$steps() == 'step2'){
       this.router.navigate(['forgot-password','reset-code']);
     }
 
-    this.passwordService.$userEmail.subscribe(
-      res => this.email = res
-    )
+    this.email = this.passwordService.$userEmail()
   }
 
   newPassForm = new FormGroup({

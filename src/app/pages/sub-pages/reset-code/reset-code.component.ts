@@ -20,7 +20,7 @@ export class ResetCodeComponent {
   })
 
   ngOnInit(): void {
-    if(this.passwordService.$steps.getValue() != 'step2'){
+    if(this.passwordService.$steps() != 'step2'){
       this.router.navigate(['forgot-password'])
     }
   }
@@ -28,8 +28,7 @@ export class ResetCodeComponent {
   onSubmit(){
     this.passwordService.resetCode(this.resetCodeForm.controls.resetCode.value as string).subscribe({
       next:(res) => {
-        this.passwordService.$steps.next('step3');
-        console.log(res)
+        this.passwordService.$steps.set('step3');
       },
       error:(err) => {
         console.log(err);
